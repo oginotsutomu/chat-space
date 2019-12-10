@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+.fa-edit{
+  color: white;
+}
+.fa-cog{
+  color: white;
+}
+.side-bar{
+  background-color: #253141;
+  width: 300px;
+  height: 100vh;
+
+  .header-side{
+    height: 100px;
+    padding: 0 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    &__box{
+      height: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      
+      &__menu{
+        display: flex;
+        li{
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  .groups{
+    background-color: #2f3e51;
+    height: calc(100vh - 100px);
+    padding: 20px;
+    color: white;
+    font-size: 15px;
+      .group{
+        margin-bottom: 40px;
+        &__group-name{
+          font-size: 15px;
+          margin-bottom: 5px;
+        }
+        &__latest-message{
+          font-size: 11px;
+        }
+      }
+    &__group-name{
+      margin-bottom: 5px;
+    }
+  }
+}

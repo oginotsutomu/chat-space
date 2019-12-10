@@ -1,0 +1,27 @@
+.chat-main
+  .main-header
+    .main-header__left-box
+      .main-header__left-box__current-group<aaaaaa
+      %ul.main-header__left-box__member-list
+        memder :
+        %li.main-header__left-box__member-list__member
+          aaaaaaa
+    .edit-btn
+      = link_to "#" ,class: "edit" do
+        Edit
+  .messages
+    .message
+      .message__upper-info
+        %p.message__upper-info__talker<masa
+        %p.message__upper-info__date<2019/3/04
+      %p.message__text<おはよう
+  .form
+    .new_message
+      .input-box
+        %input.input-box__text{size: 50, placeholder: "type a message", type: "text",}/
+        .input-box__image
+        %label{class: "input-box__image"}
+          = icon('fas', 'image')
+          %input.input-box__image-text{type: "file"}
+      .submit-btn
+        Send
