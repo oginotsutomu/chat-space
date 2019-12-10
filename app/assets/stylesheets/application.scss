@@ -2,8 +2,10 @@
 @import "wrapper";
 @import "font-awesome-sprockets";
 @import "./font-awesome";
+@import "config/colors";
+@import "config/font-size";
 @import "modules/user";
 @import "message/message";
-@import "side-bar/group";
-@import "config/colors";
+@import "modules/group";
+@import "modules/group";
 @import "modules/flash";
