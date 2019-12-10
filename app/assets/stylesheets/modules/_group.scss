@@ -38,6 +38,9 @@
     height: calc(100vh - 100px);
     padding: 0 20px;
     .group {
+      a{
+        text-decoration: none;
+      }
       box-sizing: border-box;
       padding: 20px 0 40px;
       &__name {
