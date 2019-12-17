@@ -1,43 +1,58 @@
 $(function(){
-  function buildHTML(message){
-    // 「もしメッセージに画像が含まれていたら」という条件式
-    if (message.image) {
-      //メッセージに画像が含まれる場合のHTMLを作る
-      var html =  `<div class="message">
-                    <div class="upper-message">
-                      <div class="upper-message__user-name">
-                        ${message.name}
-                      </div>
-                      <div class="upper-message__data">
-                        ${message.created_at}
-                      </div>
-                    </div>
-                    <div class="lower-message">
-                      <img class="lower-message__image "src=${message.image}>
-                    </div>
-                  </div>`
-                return html
-      } else {
-      //メッセージに画像が含まれない場合のHTMLを作る
-      var html =  `<div class="message">
-                    <div class="upper-message">
-                      <div class="upper-message__user-name">
-                        ${message.name}
-                      </div>
-                      <div class="upper-message__data">
-                        ${message.created_at}
-                      </div>
-                    </div>
-                    <div class="lower-message">
-                      <p class="lower-message__content">
-                        ${message.content}
-                      </p>
-                    </div>
-                  </div>`
-                return html
-
-    }
-  }
+  var buildHTML = function(message) {
+    if (message.content && message.image) {
+      //data-idが反映されるようにしている
+      var html = `<div class="message" data-message-id=` + message.id + `>` +
+        `<div class="upper-message">` +
+          `<div class="upper-message__user-name">` +
+            message.user_name +
+          `</div>` +
+          `<div class="upper-message__date">` +
+            message.created_at +
+          `</div>` +
+        `</div>` +
+        `<div class="lower-message">` +
+          `<p class="lower-message__content">` +
+            message.content +
+          `</p>` +
+          `<img src="` + message.image + `" class="lower-message__image" >` +
+        `</div>` +
+      `</div>`
+    } else if (message.content) {
+      //同様に、data-idが反映されるようにしている
+      var html = `<div class="message" data-message-id=` + message.id + `>` +
+        `<div class="upper-message">` +
+          `<div class="upper-message__user-name">` +
+            message.user_name +
+          `</div>` +
+          `<div class="upper-message__date">` +
+            message.created_at +
+          `</div>` +
+        `</div>` +
+        `<div class="lower-message">` +
+          `<p class="lower-message__content">` +
+            message.content +
+          `</p>` +
+        `</div>` +
+      `</div>`
+    } else if (message.image) {
+      //同様に、data-idが反映されるようにしている
+      var html = `<div class="message" data-message-id=` + message.id + `>` +
+        `<div class="upper-message">` +
+          `<div class="upper-message__user-name">` +
+            message.user_name +
+          `</div>` +
+          `<div class="upper-message__date">` +
+            message.created_at +
+          `</div>` +
+        `</div>` +
+        `<div class="lower-message">` +
+          `<img src="` + message.image + `" class="lower-message__image" >` +
+        `</div>` +
+      `</div>`
+    };
+    return html;
+  };
 
   $('.new_message').on('submit', function(e){
     e.preventDefault();
@@ -62,4 +77,28 @@ $(function(){
       alert('エラー');
     })
   })
+
+  var reloadMessages = function() {
+    if (location.href.match(/\/groups\/\d+\/messages/)){
+      last_message_id = $('.message:last').data("message-id");
+      $.ajax({
+        url: "api/messages",
+        type: 'get',
+        dataType: 'json',
+        data: {id: last_message_id}
+      })
+      .done(function(messages) {
+        var insertHTML = '';
+        $.each(messages, function(i, message) {
+          insertHTML += buildHTML(message)
+        });
+        $('.messages').append(insertHTML);
+        $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
+      })
+      .fail(function() {
+        alert('エラー');
+      });
+    };
+  }
+  setInterval(reloadMessages, 5000);
 })
