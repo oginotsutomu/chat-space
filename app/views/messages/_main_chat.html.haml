@@ -6,7 +6,7 @@
       %ul.main-header__left-box__member-list
         memder : 
         %li.main-header__left-box__member-list__membe
-          - current_user.groups.each do |user|
+          -@group.users.each do |user|
             = user.name
 
     .edit-btn
